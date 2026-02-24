@@ -1,13 +1,14 @@
-//
-// Created by Romanovskaia Eva on 22.02.2026.
-//
+#pragma once
 
-#ifndef PROJECT_C_BUBBLESORT_H
-#define PROJECT_C_BUBBLESORT_H
+#include "../core/AllAlgorithms.h"
 
+class BubbleSort : public AllAlgorithmsI {
+public:
+    void sort(std::span<int> data,
+             std::optional<std::function<void(std::span<int>)>> visualizer) override;
 
-class BubbleSort {
+    std::string algType() const override { return "BubbleSort"; }
+    std::string complexity() const override { return "O(n²)"; }
 };
 
 
-#endif //PROJECT_C_BUBBLESORT_H

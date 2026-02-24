@@ -1,13 +1,21 @@
-//
-// Created by Romanovskaia Eva on 22.02.2026.
-//
+#pragma once
 
-#ifndef PROJECT_C_ALLALGORITHMS_H
-#define PROJECT_C_ALLALGORITHMS_H
+#include <span>
 
+class AllAlgorithmsI {
+public:
+    AllAlgorithmsI() = default;
+    virtual ~AllAlgorithmsI() = default;
 
-class AllAlgorithms {
+    virtual void sort(std::span<int> data, std::optional<std::function<void(std::span<int>)>> visualizer = std::nullopt) = 0;
+
+    virtual std::string algType() const = 0;
+    virtual std::string complexity() const = 0;
 };
 
+class AlgCreation {
+public:
+    static std::unique_ptr<AllAlgorithmsI> create(const std::string& algType);
 
-#endif //PROJECT_C_ALLALGORITHMS_H
+    static std::vector<std::string> available();
+};

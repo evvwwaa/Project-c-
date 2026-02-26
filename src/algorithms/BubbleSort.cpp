@@ -5,6 +5,10 @@ void BubbleSort::sort(std::span<int> data, std::optional<std::function<void(std:
     auto& logger = Logger::getInstance();
     logger.log("Start: BubbleSort", Logger::INFO);
 
+    if (data.size() <= 1) {
+        logger.log("End: SelectionSort", Logger::INFO);
+        return;
+    }
     for (size_t i = 0; i < data.size() - 1; ++i) {
         bool areSwapped = false;
         for (size_t j = 0; j < data.size() - i - 1; ++j) {

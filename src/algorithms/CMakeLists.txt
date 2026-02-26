@@ -1,6 +1,20 @@
 add_library(algorithms_lib
         BubbleSort.cpp
         BubbleSort.h
+        SelectionSort.cpp
+        SelectionSort.h
+        InsertionSort.cpp
+        InsertionSort.h
+        MergeSort.cpp
+        MergeSort.h
+        QuickSort.cpp
+        QuickSort.h
+        RandomQuickSort.cpp
+        RandomQuickSort.h
+        CountingSort.cpp
+        CountingSort.h
+        RadixSort.cpp
+        RadixSort.h
 )
 
 target_include_directories(algorithms_lib

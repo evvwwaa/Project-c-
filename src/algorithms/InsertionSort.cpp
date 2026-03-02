@@ -11,8 +11,8 @@ void InsertionSort::sort(std::span<int> data, std::optional<std::function<void(s
     }
 
     for (size_t i = 1; i < data.size(); ++i) {
-        int current_element = data[i];
-        int j = i - 1;
+        auto current_element = data[i];
+        int j = static_cast<int>(i) - 1;
 
         while (j >= 0 && current_element < data[j]) {
             data[j + 1] = data[j];

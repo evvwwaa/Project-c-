@@ -1,4 +1,5 @@
 #include "CountingSort.h"
+#include <vector>
 #include "../utilities/Logger.h"
 
 void CountingSort::sort(std::span<int> data, std::optional<std::function<void(std::span<int>)>> visualizer) {
@@ -10,25 +11,29 @@ void CountingSort::sort(std::span<int> data, std::optional<std::function<void(st
         return;
     }
 
+    int min_element = data[0];
     int max_element = data[0];
-    for (size_t i = 1; i < data.size(); ++i) {
+    for (size_t i = 1; i < data.size(); i++) {
+        if (data[i] < min_element) {
+            min_element = data[i];
+        }
         if (data[i] > max_element) {
             max_element = data[i];
         }
     }
 
-    std::vector<int> vector(max_element + 1, 0);
+    std::vector<int> count_elements(max_element - min_element + 1, 0);
 
-    for (size_t i = 0; i < vector.size(); ++i) {
-        vector[i] += 1;
+    for (size_t i = 0; i < data.size(); i++) {
+        count_elements[data[i] - min_element]++;
     }
 
-    int index_element = 0;
-    for (int i = 0; i <= max_element; ++i) {
-        while (vector[i] > 0) {
-            data[index_element] = i;
-            ++index_element;
-            --vector[i];
+    size_t first_index = 0;
+    for (int i = 0; i < count_elements.size(); i++) {
+        while (count_elements[i] > 0) {
+            data[first_index] = i + min_element;
+            first_index++;
+            count_elements[i]--;
 
             if (visualizer) {
                 (*visualizer)(data);

@@ -1,7 +1,7 @@
 #include "InsertionSort.h"
 #include "../utilities/Logger.h"
 
-void InsertionSort::sort(std::span<int> data, std::optional<std::function<void(std::span<int>)>> visualizer) {
+void InsertionSort::sort(std::span<int> data, std::optional<std::function<void(std::span<int>, int, int)>> visualizer) {
     auto& logger = Logger::getInstance();
     logger.log("Start: InsertionSort", Logger::INFO);
 
@@ -22,12 +22,12 @@ void InsertionSort::sort(std::span<int> data, std::optional<std::function<void(s
         data[j + 1] = current_element;
 
         if (visualizer) {
-            (*visualizer)(data);
+            (*visualizer)(data, j + 1, i);
         }
     }
 
     if (visualizer) {
-        (*visualizer)(data);
+        (*visualizer)(data, -1, -1);
     }
 
     logger.log("End: InsertionSort", Logger::INFO);

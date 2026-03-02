@@ -9,6 +9,7 @@ target_link_libraries(project
         core_lib
         algorithms_lib
         utilities_lib
+        ui_lib
 )
 
 target_include_directories(project

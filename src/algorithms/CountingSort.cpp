@@ -2,12 +2,13 @@
 #include <vector>
 #include "../utilities/Logger.h"
 
-void CountingSort::sort(std::span<int> data, std::optional<std::function<void(std::span<int>)>> visualizer) {
+void CountingSort::sort(std::span<int> data, std::optional<std::function<void(std::span<int>, int, int)>> visualizer) {
     auto& logger = Logger::getInstance();
     logger.log("Start: CountingSort", Logger::INFO);
 
     if (data.size() <= 1) {
-        logger.log("End: CountingSort", Logger::INFO);
+        logger.log("End: CountingSort",
+            Logger::INFO);
         return;
     }
 
@@ -36,8 +37,9 @@ void CountingSort::sort(std::span<int> data, std::optional<std::function<void(st
             count_elements[i]--;
 
             if (visualizer) {
-                (*visualizer)(data);
+                (*visualizer)(data, static_cast<int>(first_index), -1);
             }
+            first_index++;
         }
     }
 

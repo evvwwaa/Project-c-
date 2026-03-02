@@ -1,7 +1,7 @@
 #include "BubbleSort.h"
 #include "../utilities/Logger.h"
 
-void BubbleSort::sort(std::span<int> data, std::optional<std::function<void(std::span<int>)>> visualizer) {
+void BubbleSort::sort(std::span<int> data, std::optional<std::function<void(std::span<int>, int, int)>> visualizer) {
     auto& logger = Logger::getInstance();
     logger.log("Start: BubbleSort", Logger::INFO);
 
@@ -17,7 +17,7 @@ void BubbleSort::sort(std::span<int> data, std::optional<std::function<void(std:
                 areSwapped = true;
 
                 if (visualizer) {
-                    (*visualizer)(data);
+                    (*visualizer)(data, j, j+1);
                 }
             }
         }

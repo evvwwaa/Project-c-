@@ -2,6 +2,13 @@
 #include "../utilities/Logger.h"
 #include <iostream>
 #include "../algorithms/BubbleSort.h"
+#include "../algorithms/SelectionSort.h"
+#include "../algorithms/InsertionSort.h"
+#include "../algorithms/MergeSort.h"
+#include "../algorithms/QuickSort.h"
+#include "../algorithms/RandomQuickSort.h"
+#include "../algorithms/CountingSort.h"
+#include "../algorithms/RadixSort.h"
 
 std::unique_ptr<AllAlgorithmsI> AlgCreation::create(const std::string &algType) {
     Logger::getInstance().log("The algorithm: " + algType, Logger::DEBUG);

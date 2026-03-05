@@ -14,21 +14,28 @@ void InsertionSort::sort(std::span<int> data, std::optional<std::function<void(s
         auto current_element = data[i];
         int j = static_cast<int>(i) - 1;
 
+        if (visualizer) {
+            (*visualizer)(data, i, j);
+        }
+
         while (j >= 0 && current_element < data[j]) {
             data[j + 1] = data[j];
-            --j;
-        }
+            if (visualizer) {
+                (*visualizer)(data, j, j + 1);
+                --j;
+            }
 
-        data[j + 1] = current_element;
+            data[j + 1] = current_element;
+
+            if (visualizer) {
+                (*visualizer)(data, j + 1, i);
+            }
+        }
 
         if (visualizer) {
-            (*visualizer)(data, j + 1, i);
+            (*visualizer)(data, -1, -1);
         }
-    }
 
-    if (visualizer) {
-        (*visualizer)(data, -1, -1);
+        logger.log("End: InsertionSort", Logger::INFO);
     }
-
-    logger.log("End: InsertionSort", Logger::INFO);
 }

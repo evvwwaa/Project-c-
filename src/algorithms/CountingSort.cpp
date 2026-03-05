@@ -33,13 +33,11 @@ void CountingSort::sort(std::span<int> data, std::optional<std::function<void(st
     for (int i = 0; i < count_elements.size(); i++) {
         while (count_elements[i] > 0) {
             data[first_index] = i + min_element;
-            first_index++;
-            count_elements[i]--;
-
             if (visualizer) {
-                (*visualizer)(data, static_cast<int>(first_index), -1);
+                (*visualizer)(data, first_index, -1);
             }
             first_index++;
+            count_elements[i]--;
         }
     }
 

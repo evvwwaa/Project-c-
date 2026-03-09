@@ -1,7 +1,9 @@
 #include "SelectionSort.h"
 #include "../utilities/Logger.h"
+#include <thread>
 
-void SelectionSort::sort(std::span<int> data, std::optional<std::function<void(std::span<int>, int, int)>> visualizer) {
+template<class T>
+void SelectionSort<T>::sort(std::span<T> data, std::optional<std::function<void(std::span<T>, int, int)>> visualizer) {
     auto& logger = Logger::getInstance();
     logger.log("Start: SelectionSort", Logger::INFO);
 
@@ -24,6 +26,7 @@ void SelectionSort::sort(std::span<int> data, std::optional<std::function<void(s
         if (now_min_element != i) {
             std::swap(data[i], data[now_min_element]);
             if (visualizer) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(50));
                 (*visualizer)(data, i, now_min_element);
             }
         }

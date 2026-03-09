@@ -1,9 +1,11 @@
 #include "CountingSort.h"
 #include <vector>
 #include "../utilities/Logger.h"
+#include <thread>
 
-void CountingSort::sort(std::span<int> data, std::optional<std::function<void(std::span<int>, int, int)>> visualizer) {
-    auto& logger = Logger::getInstance();
+template<class T>
+void CountingSort<T>::sort(std::span<T> data, std::optional<std::function<void(std::span<T>, int, int)>> visualizer) {
+    Logger& logger = Logger::getInstance();
     logger.log("Start: CountingSort", Logger::INFO);
 
     if (data.size() <= 1) {
@@ -34,6 +36,7 @@ void CountingSort::sort(std::span<int> data, std::optional<std::function<void(st
         while (count_elements[i] > 0) {
             data[first_index] = i + min_element;
             if (visualizer) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(50));
                 (*visualizer)(data, first_index, -1);
             }
             first_index++;

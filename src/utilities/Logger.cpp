@@ -60,3 +60,6 @@ void Logger::setLevel(Level level) {
 Logger::~Logger() {
     _file.close();
 }
+
+Logger::Logger() {
+};

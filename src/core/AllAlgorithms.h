@@ -34,9 +34,9 @@ std::unique_ptr<AllAlgorithmsI<T>> AlgCreation::create(const std::string &algTyp
     else if (algType == "MergeSort") {
         return std::make_unique<MergeSort<T>>();
     }
-    // else if (algType == "QuickSort") {
-    //     return std::make_unique<QuickSort>();
-    // }
+    else if (algType == "QuickSort") {
+        return std::make_unique<QuickSort<T>>();
+    }
     // else if (algType == "RandomQuickSort") {
     //     return std::make_unique<RandomQuickSort>();
     // }

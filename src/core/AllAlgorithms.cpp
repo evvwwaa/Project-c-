@@ -1,6 +1,5 @@
 #include "AllAlgorithms.h"
 #include "../utilities/Logger.h"
-#include <iostream>
 #include "../algorithms/BubbleSort.h"
 #include "../algorithms/SelectionSort.h"
 #include "../algorithms/InsertionSort.h"

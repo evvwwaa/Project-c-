@@ -1,5 +1,6 @@
 #include "BubbleSort.h"
 #include "../utilities/Logger.h"
+#include <thread>
 
 template<class T>
 void BubbleSort<T>::sort(std::span<T> data, std::optional<std::function<void(std::span<T>, int, int)>> visualizer) {
@@ -18,6 +19,7 @@ void BubbleSort<T>::sort(std::span<T> data, std::optional<std::function<void(std
 
 
                 if (visualizer) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
                     (*visualizer)(data, j, j+1);
                 }
                 areSwapped = true;

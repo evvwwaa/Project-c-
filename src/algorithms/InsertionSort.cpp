@@ -1,7 +1,9 @@
 #include "InsertionSort.h"
 #include "../utilities/Logger.h"
+#include <thread>
 
-void InsertionSort::sort(std::span<int> data, std::optional<std::function<void(std::span<int>, int, int)>> visualizer) {
+template<class T>
+void InsertionSort<T>::sort(std::span<T> data, std::optional<std::function<void(std::span<T>, int, int)>> visualizer) {
     auto& logger = Logger::getInstance();
     logger.log("Start: InsertionSort", Logger::INFO);
 
@@ -21,6 +23,7 @@ void InsertionSort::sort(std::span<int> data, std::optional<std::function<void(s
         while (j >= 0 && current_element < data[j]) {
             data[j + 1] = data[j];
             if (visualizer) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(50));
                 (*visualizer)(data, j, j + 1);
                 --j;
             }
@@ -28,11 +31,13 @@ void InsertionSort::sort(std::span<int> data, std::optional<std::function<void(s
             data[j + 1] = current_element;
 
             if (visualizer) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(50));
                 (*visualizer)(data, j + 1, i);
             }
         }
 
         if (visualizer) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
             (*visualizer)(data, -1, -1);
         }
 

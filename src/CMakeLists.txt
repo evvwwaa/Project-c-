@@ -2,5 +2,4 @@ add_subdirectory(core)
 add_subdirectory(ui)
 add_subdirectory(algorithms)
 add_subdirectory(utilities)
-#add_executable(project ../main.cpp)
 

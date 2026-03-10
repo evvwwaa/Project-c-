@@ -43,9 +43,9 @@ std::unique_ptr<AllAlgorithmsI<T>> AlgCreation::create(const std::string &algTyp
     else if (algType == "CountingSort") {
         return std::make_unique<CountingSort<T>>();
     }
-    // else if (algType == "RadixSort") {
-    //     return std::make_unique<RadixSort>();
-    // }
+    else if (algType == "RadixSort") {
+        return std::make_unique<RadixSort<T>>();
+    }
 
     Logger::getInstance().log("Noname algorithm: " + algType, Logger::ERROR);
     throw std::invalid_argument("No such algorithm" + algType);

@@ -6,7 +6,8 @@ class Visual {
 public:
     Visual();
 
-    void visualize(std::span<int> data, int i1, int i2);
+    template<typename T>
+    void visualize(std::span<T> data, int i1, int i2);
     void title(const std::string& title);
     void algInformation(const std::string& algType, const std::string& complexity);
 

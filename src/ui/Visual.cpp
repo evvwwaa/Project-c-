@@ -7,18 +7,24 @@
 
 Visual::Visual() {}
 
-void Visual::visualize(std::span<int> data, int i1, int i2) {
+template<typename T>
+void Visual::visualize(std::span<T> data, int i1, int i2) {
     if (data.empty()) {
         std::cout << "[Empty]\n";
         return;
     }
 
-    int maxValue = std::max(*std::max_element(data.begin(), data.end()), 1);
+    double minValue = static_cast<double>(*std::min_element(data.begin(), data.end()));
+    double maxValue = static_cast<double>(*std::max_element(data.begin(), data.end()));
+
+    double range = (std::abs(maxValue - minValue) < 1e-9) ? 1.0 : (maxValue - minValue);
+
     int maxHeight = 10;
 
     std::vector<int> heights;
     for (auto x : data) {
-        heights.push_back(x * maxHeight / maxValue);
+        double nor = (static_cast<double>(x) - minValue) / range;
+        heights.push_back(static_cast<int>(nor * maxHeight + 0.5));
     }
 
     for (int r = maxHeight; r >= 1; --r) {
@@ -57,3 +63,7 @@ void Visual::algInformation(const std::string &algType, const std::string &compl
     complexity_ = complexity;
     std::cout << "Algorithm: " << algType_ << ".\n" << "Complexity: " << complexity_ << "\n";
 }
+
+template void Visual::visualize<int>(std::span<int>, int, int);
+template void Visual::visualize<double>(std::span<double>, int, int);
+template void Visual::visualize<float>(std::span<float>, int, int);

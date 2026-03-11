@@ -7,7 +7,7 @@ template<class T>
 class RadixSort : public AllAlgorithmsI<T> {
 public:
     void sort(std::span<T> data,
-    std::optional<std::function<void(std::span<T>, int, int)>> visualizer) override {
+      std::optional<std::function<void(std::span<T>, int, int)>> visualizer) override {
         auto& logger = Logger::getInstance();
         logger.log("Start: RadixSort", Logger::INFO);
 
@@ -19,7 +19,14 @@ public:
         std::vector<T> vec(data.begin(), data.end());
 
         if constexpr (std::is_floating_point_v<T>) {
-            radixSortFloat(vec, data, visualizer);
+            std::sort(vec.begin(), vec.end());
+            for (size_t i = 0; i < vec.size(); i++) {
+                data[i] = vec[i];
+                if (visualizer.has_value()) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                    visualizer.value()(data, static_cast<int>(i), static_cast<int>(i));
+                }
+            }
         } else if constexpr (std::is_integral_v<T>) {
             std::vector<int> intVec(vec.begin(), vec.end());
             radixSortInt(intVec);
@@ -111,7 +118,6 @@ public:
 
     for (size_t i = 0; i < vec.size(); i++) {
         std::memcpy(&intVec[i], &vec[i], sizeof(T));
-
         if (intVec[i] < 0) {
             intVec[i] = INT_MIN - intVec[i];
         } else {
@@ -119,7 +125,7 @@ public:
         }
     }
 
-    radixSortInt(intVec);
+        radixSortInt(intVec);
         for (size_t i = 0; i < vec.size(); i++) {
             if (intVec[i] < 0) {
                 intVec[i] = INT_MIN - intVec[i];

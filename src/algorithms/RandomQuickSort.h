@@ -23,14 +23,14 @@ public:
         if (low >= high) return;
 
         int randomIndex = low + rand() % (high - low + 1);
-        int pivot = data[randomIndex];
+        T pivot = data[randomIndex];
 
         if (visualizer) {
             (*visualizer)(data, randomIndex, -1);
             std::this_thread::sleep_for(std::chrono::milliseconds(50));
         }
 
-        int temp = data[randomIndex];
+        T temp = data[randomIndex];
         data[randomIndex] = data[low + (high - low) / 2];
         data[low + (high - low) / 2] = temp;
 
@@ -55,7 +55,7 @@ public:
             }
 
             if (i <= j) {
-                int tempSwap = data[i];
+                T tempSwap = data[i];
                 data[i] = data[j];
                 data[j] = tempSwap;
 

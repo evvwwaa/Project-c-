@@ -27,19 +27,14 @@ public:
 
             while (j >= 0 && current_element < data[j]) {
                 data[j + 1] = data[j];
-                if (visualizer) {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
-                    (*visualizer)(data, j, j + 1);
-                    --j;
-                }
-
-                data[j + 1] = current_element;
+                --j;
 
                 if (visualizer) {
                     std::this_thread::sleep_for(std::chrono::milliseconds(50));
-                    (*visualizer)(data, j + 1, i);
+                    (*visualizer)(data, j + 1, j + 2);
                 }
             }
+            data[j + 1] = current_element;
 
             if (visualizer) {
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));

@@ -19,8 +19,12 @@ add_executable(
         test.cpp
         ${CMAKE_SOURCE_DIR}/src/utilities/Logger.cpp
 )
-target_link_libraries(
-        test
+target_link_libraries(test
+        PRIVATE
+        algorithms_lib
+        core_lib
+        utilities_lib
+        ui_lib
         GTest::gtest_main
 )
 
@@ -31,4 +35,5 @@ target_include_directories(test
         PRIVATE
         ${CMAKE_SOURCE_DIR}/src/algorithms
         ${CMAKE_SOURCE_DIR}/src/utilities
+        ${CMAKE_SOURCE_DIR}/src/ui
 )

@@ -1,90 +1,159 @@
-#include "../ui/Visual.h"
-#include "AllAlgorithms.h"
+#include <iostream>
+#include <vector>
+#include <string>
+#include <BubbleSort.h>
+#include <CountingSort.h>
+#include <MergeSort.h>
+#include <SelectionSort.h>
+#include <InsertionSort.h>
+#include <QuickSort.h>
+#include <RandomQuickSort.h>
+#include <RadixSort.h>
 
-#include<iostream>
+#include "ArrGenerator.h"
+#include "../ui/Visual.h"
+
+std::vector<std::string> SortNames = {"BubbleSort", "MergeSort", "InsertionSort", "SelectionSort",
+    "CountingSort", "QuickSort", "RandomQuickSort", "RadixSort"
+};
+
+template<typename T>
+std::unique_ptr<AllAlgorithmsI<T>> createSorter(const std::string& name) {
+    if (name == "BubbleSort") {
+        return std::make_unique<BubbleSort<T>>();
+    }
+    if (name == "MergeSort") {
+        return std::make_unique<MergeSort<T>>();
+    }
+    if (name == "InsertionSort") {
+        return std::make_unique<InsertionSort<T>>();
+    }
+    if (name == "SelectionSort") {
+        return std::make_unique<SelectionSort<T>>();
+    }
+    if (name == "CountingSort") {
+        return std::make_unique<CountingSort<T>>();
+    }
+    if (name == "QuickSort") {
+        return std::make_unique<QuickSort<T>>();
+    }
+    if (name == "RandomQuickSort") {
+        return std::make_unique<RandomQuickSort<T>>();
+    }
+    if (name == "RadixSort") {
+        return std::make_unique<RadixSort<T>>();
+    }
+    throw std::invalid_argument("Unknown sort name!");
+}
+
+void printArray(const std::vector<int>& arr, const std::string& message) {
+    std::cout << message << ": ";
+    for (auto x : arr) std::cout << x << " ";
+    std::cout << std::endl;
+}
+
+void SortRun(std::vector<int>& arr, int Type) {
+    std::string SortName = SortNames[Type - 1];
+
+    auto sorter = createSorter<int>(SortName);
+
+    Visual visual;
+    visual.title(SortName + " Visualization");
+    visual.algInformation(sorter->algType(), sorter->complexity());
+
+    printArray(arr, "First array");
+    std::cout << "Sort begin...\n";
+
+    sorter->sort(std::span<int>(arr),
+      [&](std::span<int> arr, int i1, int i2){
+         visual.visualize(arr, i1, i2);
+      }
+    );
+
+    std::cout << "\nSorting " << SortName << " completed\n";
+    printArray(arr, "Sorted array");
+}
+int ChooseTypeOfInput() {
+    int TypeOfInput;
+    do {
+        std::cout << "Choose type of input:\n ";
+        std::cout << "1. Enter numbers by yourself\n";
+        std::cout << "2. Generate random numbers\n";
+        std::cout << "Your choice:\n ";
+        std::cin >> TypeOfInput;
+        if (TypeOfInput < 1 or TypeOfInput > 2) {
+            std::cout << "Please enter valid choices.\n";
+        }
+    } while (TypeOfInput < 1 or TypeOfInput > 2);
+    if (TypeOfInput == 1) {
+        std::cout << "You selected manual input.\n";
+    }
+    else if (TypeOfInput == 2) {
+        std::cout << "You selected random input.\n";
+    }
+    return TypeOfInput;
+}
+
+int ArraySize() {
+    int size;
+    do {
+        std::cout << "Input array size:\n ";
+        std::cin >> size;
+        if (size < 1 or size > 1000) {
+            std::cout << "Please enter valid array size.\n";
+        }
+        else {
+            break;
+        }
+    } while (size < 1 or size > 1000);
+    return size;
+}
+
+std::vector<int> InputNumbersByYourself(int size) {
+    std::vector<int> arr(size);
+    std::cout << "Input " << size << " numbers separated by spaces: \n";
+    for (int i = 0; i < size; i++) {
+        std::cin >> arr[i];
+    }
+    return arr;
+}
+
+std::vector<int> GenerateNumbersByRandom(int size) {
+    return ArrGenerator::randomArr<int>(size, 1, 100);
+}
+
+int chooseSortType() {
+    int SortType;
+    do {
+        std::cout << "Choose type of input:\n ";
+        std::cout << "1. BubbleSort\n";
+        std::cout << "2. MergeSort\n";
+        std::cout << "3. InsertionSort\n";
+        std::cout << "4. SelectionSort\n";
+        std::cout << "5. CountingSort\n";
+        std::cout << "6. QuickSort\n";
+        std::cout << "7. Random QuickSort\n";
+        std::cout << "8. RadixSort\n";
+        std::cin >> SortType;
+        if (SortType < 1 or SortType > 8) {
+            std::cout << "Please enter valid choices.\n";
+        } else {
+            break;
+        }
+    } while (SortType < 1 or SortType > 8);
+    return SortType;
+}
 
 int main() {
-    std::vector<int> data = {5, 8, 3, 9, 4, 1, 0};
-
-    auto bubble = AlgCreation::create<int>("BubbleSort");
-    Visual visual;
-    visual.title("Bubble Sort Demo");
-    visual.algInformation(bubble->algType(), bubble->complexity());
-    bubble->sort(data, [&](std::span<int> arr, int i1, int i2){ visual.visualize(arr, i1, i2); });
-
-    std::cout << "Sorted array (BubbleSort):\n";
-    for (auto x : data) std::cout << x << " ";
-    std::cout << "\n\n";
-
-    data = {5, 8, 3, 9, 4, 1, 0};
-
-    auto selection = AlgCreation::create<int>("SelectionSort");
-    Visual visual2;
-    visual2.title("Selection Sort Demo");
-    visual2.algInformation(selection->algType(), selection->complexity());
-    selection->sort(data, [&](std::span<int> arr, int i1, int i2){ visual2.visualize(arr, i1, i2); });
-
-    std::cout << "Sorted array (SelectionSort):\n";
-    for (auto x : data) std::cout << x << " ";
-    std::cout << std::endl;
-
-    data = {5, 8, 3, 9, 4, 1, 0};
-
-    auto insertion = AlgCreation::create<int>("InsertionSort");
-    Visual visual3;
-    visual3.title("Insertion Sort Demo");
-    visual3.algInformation(insertion->algType(), insertion->complexity());
-    insertion->sort(data, [&](std::span<int> arr, int i1, int i2){ visual3.visualize(arr, i1, i2); });
-
-    std::cout << "Sorted array (InsertionSort):\n";
-    for (auto x : data) std::cout << x << " ";
-    std::cout << std::endl;
-
-    data = {5, 8, 3, 9, 4, 1, 0};
-
-    auto counting = AlgCreation::create<int>("CountingSort");
-    Visual visual4;
-    visual4.title("Counting Sort Demo");
-    visual4.algInformation(counting->algType(), counting->complexity());
-    counting->sort(data, [&](std::span<int> arr, int i1, int i2){ visual4.visualize(arr, i1, i2); });
-
-    std::cout << "Sorted array (CountingSort):\n";
-    for (auto x : data) std::cout << x << " ";
-    std::cout << std::endl;
-
-    data = {5, 8, 3, 9, 4, 1, 0};
-
-    auto merge = AlgCreation::create<int>("MergeSort");
-    Visual visual5;
-    visual5.title("Merge Sort Demo");
-    visual5.algInformation(merge->algType(), merge->complexity());
-    merge->sort(data, [&](std::span<int> arr, int i1, int i2){ visual5.visualize(arr, i1, i2); });
-
-    std::cout << "Sorted array (MergeSort):\n";
-    for (auto x : data) std::cout << x << " ";
-    std::cout << std::endl;
-
-    data = {5, 8, 3, 9, 4, 1, 0};
-
-    auto quick = AlgCreation::create<int>("QuickSort");
-    Visual visual6;
-    visual6.title("Quick Sort Demo");
-    visual6.algInformation(quick->algType(), quick->complexity());
-    quick->sort(data, [&](std::span<int> arr, int i1, int i2){ visual6.visualize(arr, i1, i2); });
-
-    std::cout << "Sorted array (QuickSort):\n";
-    for (auto x : data) std::cout << x << " ";
-    std::cout << std::endl;
-
-    data = {5, 8, 3, 9, 4, 1, 0};
-
-    auto radix = AlgCreation::create<int>("RadixSort");
-    Visual visual7;
-    visual7.title("Radix Sort Demo");
-    visual7.algInformation(radix->algType(), radix->complexity());
-    radix->sort(data, [&](std::span<int> arr, int i1, int i2){ visual7.visualize(arr, i1, i2); });
-
-    std::cout << "Sorted array (RAdixSort):\n";
-    for (auto x : data) std::cout << x << " ";
-    std::cout << std::endl;
+    int mode = ChooseTypeOfInput();
+    int size = ArraySize();
+    std::vector<int> arr;
+    if (mode == 1) {
+        arr = InputNumbersByYourself(size);
+    }
+    else {
+        arr = GenerateNumbersByRandom(size);
+    }
+    int sortType = chooseSortType();
+    SortRun(arr, sortType);
 }

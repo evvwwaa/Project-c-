@@ -14,4 +14,7 @@ public:
 private:
     std::string algType_;
     std::string complexity_;
+    bool firstVisualization_;
+    int visualizationHeight_;
+    bool supportsANSI_;
 };

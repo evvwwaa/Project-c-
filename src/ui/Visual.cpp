@@ -4,8 +4,13 @@
 #include <thread>
 #include <algorithm>
 #include <iomanip>
+#include <cmath>
+#include <cstdlib>
 
-Visual::Visual() {}
+Visual::Visual() : firstVisualization_(true), visualizationHeight_(0) {
+    const char* term = std::getenv("TERM");
+    supportsANSI_ = (term != nullptr && std::string(term) != "dumb");
+}
 
 template<typename T>
 void Visual::visualize(std::span<T> data, int i1, int i2) {
@@ -25,6 +30,29 @@ void Visual::visualize(std::span<T> data, int i1, int i2) {
     for (auto x : data) {
         double nor = (static_cast<double>(x) - minValue) / range;
         heights.push_back(static_cast<int>(nor * maxHeight + 0.5));
+    }
+
+    if (supportsANSI_) {
+        if (firstVisualization_) {
+            firstVisualization_ = false;
+            visualizationHeight_ = 12;
+        } else {
+            std::cout << "\033[" << visualizationHeight_ << "A";
+        }
+
+        for (int i = 0; i < visualizationHeight_; ++i) {
+            std::cout << "\033[K";
+            if (i < visualizationHeight_ - 1) {
+                std::cout << "\n";
+            }
+        }
+
+        std::cout << "\033[" << visualizationHeight_ << "A";
+    } else {
+        if (!firstVisualization_) {
+            std::cout << "\n--- Step ---\n";
+        }
+        firstVisualization_ = false;
     }
 
     for (int r = maxHeight; r >= 1; --r) {

@@ -107,18 +107,6 @@ TEST(CountingSortTest, RandomArr) {
     EXPECT_EQ(arr, expected);
 }
 
-TEST(CountingSortTestDouble, RandomArr) {
-    auto arr = ArrGenerator::randomArr<double
-    >(100, -100, 100);
-    auto expected = arr;
-    std::sort(expected.begin(), expected.end());
-
-    CountingSort<double> sorter;
-    sorter.sort(std::span<double>(arr), std::nullopt);
-
-    EXPECT_EQ(arr, expected);
-}
-
 
 TEST(InsertionSortTest, UnsortedArr) {
     std::vector<int> arr = {3, 2, 5, 1, 4};

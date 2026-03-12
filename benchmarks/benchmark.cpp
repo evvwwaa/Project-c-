@@ -79,15 +79,15 @@ static void BM_SelectionSort(benchmark::State& state) {
 }
 BENCHMARK(BM_SelectionSort)->Range(8, 8<<12);
 
-// static void BM_RandomQuickSort(benchmark::State& state) {
-//     for (auto _ : state) {
-//         auto arr = ArrayGenerator::randomArr(state.range(0));
-//         RandomQuickSort<int> sorter;
-//         sorter.sort(arr, std::nullopt);
-//         benchmark::DoNotOptimize(arr);
-//     }
-// }
-// BENCHMARK(BM_RandomQuickSort)->Range(8, 8<<12);
+static void BM_RandomQuickSort(benchmark::State& state) {
+    for (auto _ : state) {
+        auto arr = ArrGenerator::randomArr<int>(state.range(0));
+        RandomQuickSort<int> sorter;
+        sorter.sort(arr, std::nullopt);
+        benchmark::DoNotOptimize(arr);
+    }
+}
+BENCHMARK(BM_RandomQuickSort)->Range(8, 8<<12);
 
 
 BENCHMARK_MAIN();

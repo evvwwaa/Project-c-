@@ -165,13 +165,13 @@ void runBenchmarks() {
 
 int main() {
     int mode = ChooseTypeOfInput();
-    int size = ArraySize();
-    std::vector<int> arr;
 
     if (mode == 3) {
         runBenchmarks();
         return 0;
     }
+    int size = ArraySize();
+    std::vector<int> arr;
 
     if (mode == 1) {
         arr = InputNumbersByYourself(size);
@@ -182,9 +182,5 @@ int main() {
     int sortType = chooseSortType();
     SortRun(arr, sortType);
 
-    if (sortType == 9) {
-        runBenchmarks();
-    } else {
-        SortRun(arr, sortType);
-    }
+    return 0;
 }

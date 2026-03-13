@@ -1,0 +1,43 @@
+-------------------------------------------------------------------
+Benchmark                         Time             CPU   Iterations
+-------------------------------------------------------------------
+BM_BubbleSort/8                6798 ns         6757 ns       104049
+BM_BubbleSort/64              19949 ns        19876 ns        35025
+BM_BubbleSort/512            672512 ns       671971 ns         1058
+BM_BubbleSort/4096         45251672 ns     45156937 ns           16
+BM_BubbleSort/32768      3051044125 ns   3050900000 ns            1
+BM_QuickSort/8                 7080 ns         7073 ns        92938
+BM_QuickSort/64               13729 ns        13720 ns        50447
+BM_QuickSort/512              76059 ns        76024 ns         9319
+BM_QuickSort/4096            660141 ns       660134 ns         1053
+BM_QuickSort/32768          6028514 ns      6028414 ns          116
+BM_CountingSort/8          11189630 ns     11189557 ns           61
+BM_CountingSort/64         13769300 ns     13768827 ns           52
+BM_CountingSort/512        14043637 ns     14043600 ns           50
+BM_CountingSort/4096       14276662 ns     14276551 ns           49
+BM_CountingSort/32768      15559293 ns     15558622 ns           45
+BM_InsertionSort/8            15653 ns        15624 ns        45078
+BM_InsertionSort/64          119274 ns       119040 ns         6568
+BM_InsertionSort/512        1163137 ns      1160764 ns          687
+BM_InsertionSort/4096      23971697 ns     23955719 ns           32
+BM_InsertionSort/32768   1063228667 ns   1062701000 ns            1
+BM_MergeSort/8                 8299 ns         8288 ns        78828
+BM_MergeSort/64               27202 ns        27201 ns        25803
+BM_MergeSort/512             196143 ns       194769 ns         3597
+BM_MergeSort/4096           1743987 ns      1743851 ns          402
+BM_MergeSort/32768         15907738 ns     15904068 ns           44
+BM_RadixSort/8                13235 ns        13222 ns        51454
+BM_RadixSort/64               25348 ns        25325 ns        27555
+BM_RadixSort/512             113411 ns       113407 ns         6177
+BM_RadixSort/4096            804839 ns       804837 ns          867
+BM_RadixSort/32768          6494878 ns      6483009 ns          109
+BM_SelectionSort/8             7496 ns         7484 ns       104462
+BM_SelectionSort/64           17421 ns        17415 ns        40307
+BM_SelectionSort/512         503941 ns       503933 ns         1381
+BM_SelectionSort/4096      28819649 ns     28817333 ns           24
+BM_SelectionSort/32768   1828996917 ns   1828868000 ns            1
+BM_RandomQuickSort/8           7726 ns         7705 ns        86942
+BM_RandomQuickSort/64         14293 ns        14278 ns        49932
+BM_RandomQuickSort/512        80252 ns        80245 ns         8710
+BM_RandomQuickSort/4096      685890 ns       685860 ns         1018
+BM_RandomQuickSort/32768    6159144 ns      6158991 ns          113

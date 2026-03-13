@@ -36,4 +36,5 @@ target_include_directories(project
         ${CMAKE_CURRENT_SOURCE_DIR}/ui
         ${CMAKE_CURRENT_SOURCE_DIR}/algorithms
         ${CMAKE_CURRENT_SOURCE_DIR}/utilities
+        ${PROJECT_BINARY_DIR}/_deps/benchmark-src/include
 )

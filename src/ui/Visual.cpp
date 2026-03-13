@@ -35,7 +35,7 @@ void Visual::visualize(std::span<T> data, int i1, int i2) {
     if (supportsANSI_) {
         if (firstVisualization_) {
             firstVisualization_ = false;
-            visualizationHeight_ = 12;
+            visualizationHeight_ = 24;
         } else {
             std::cout << "\033[" << visualizationHeight_ << "A";
         }

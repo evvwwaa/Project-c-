@@ -79,17 +79,21 @@ int ChooseTypeOfInput() {
         std::cout << "Choose type of input:\n ";
         std::cout << "1. Enter numbers by yourself\n";
         std::cout << "2. Generate random numbers\n";
+        std::cout << "3. Run Benchmarks\n";
         std::cout << "Your choice:\n ";
         std::cin >> TypeOfInput;
-        if (TypeOfInput < 1 or TypeOfInput > 2) {
+        if (TypeOfInput < 1 or TypeOfInput > 3) {
             std::cout << "Please enter valid choices.\n";
         }
-    } while (TypeOfInput < 1 or TypeOfInput > 2);
+    } while (TypeOfInput < 1 or TypeOfInput > 3);
     if (TypeOfInput == 1) {
         std::cout << "You selected manual input.\n";
     }
     else if (TypeOfInput == 2) {
         std::cout << "You selected random input.\n";
+    }
+    else if (TypeOfInput == 3) {
+        std::cout << "You selected benchmarks.\n";
     }
     return TypeOfInput;
 }
@@ -134,20 +138,41 @@ int chooseSortType() {
         std::cout << "6. QuickSort\n";
         std::cout << "7. Random QuickSort\n";
         std::cout << "8. RadixSort\n";
+        std::cout << "9. Run Benchmarks\n";
         std::cin >> SortType;
-        if (SortType < 1 or SortType > 8) {
+        if (SortType < 1 or SortType > 9) {
             std::cout << "Please enter valid choices.\n";
         } else {
             break;
         }
-    } while (SortType < 1 or SortType > 8);
+    } while (SortType < 1 or SortType > 9);
     return SortType;
+}
+
+void runBenchmarks() {
+    std::cout << "\n=== Running Benchmarks ===\n";
+    std::cout << "Wait, benchmarks are running...\n\n";
+
+    int res = system("./benchmarks/benchmarks");
+
+    if (res == 0) {
+        std::cout << "\n=== Benchmarks completed successfully ===\n";
+    } else {
+        std::cout << "\n=== Error running benchmarks ===\n";
+        std::cout << "cd cmake-build-debug && make benchmarks\n";
+    }
 }
 
 int main() {
     int mode = ChooseTypeOfInput();
     int size = ArraySize();
     std::vector<int> arr;
+
+    if (mode == 3) {
+        runBenchmarks();
+        return 0;
+    }
+
     if (mode == 1) {
         arr = InputNumbersByYourself(size);
     }
@@ -156,4 +181,10 @@ int main() {
     }
     int sortType = chooseSortType();
     SortRun(arr, sortType);
+
+    if (sortType == 9) {
+        runBenchmarks();
+    } else {
+        SortRun(arr, sortType);
+    }
 }

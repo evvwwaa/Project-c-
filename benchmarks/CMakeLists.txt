@@ -1,4 +1,4 @@
-add_executable(benchmarks ../benchmarks/benchmark.cpp)
+add_executable(benchmarks benchmark.cpp)
 
 target_link_libraries(benchmarks
         PRIVATE
@@ -15,4 +15,5 @@ target_include_directories(benchmarks
         ${PROJECT_SOURCE_DIR}/src/core
         ${PROJECT_SOURCE_DIR}/src/utilities
         ${PROJECT_SOURCE_DIR}/src/ui
+        ${PROJECT_BINARY_DIR}/_deps/benchmark-src/include
 )

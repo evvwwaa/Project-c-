@@ -1,13 +1,13 @@
 #include <benchmark/benchmark.h>
-#include "../algorithms/BubbleSort.h"
-#include "../algorithms/QuickSort.h"
-#include "../algorithms/InsertionSort.h"
-#include "../algorithms/MergeSort.h"
-#include "../algorithms/SelectionSort.h"
-#include "../algorithms/RadixSort.h"
-#include "../algorithms/RandomQuickSort.h"
-#include "../algorithms/CountingSort.h"
-#include "../utilities/ArrGenerator.h"
+#include "../src/algorithms/BubbleSort.h"
+#include "../src/algorithms/QuickSort.h"
+#include "../src/algorithms/InsertionSort.h"
+#include "../src/algorithms/MergeSort.h"
+#include "../src/algorithms/SelectionSort.h"
+#include "../src/algorithms/RadixSort.h"
+#include "../src/algorithms/RandomQuickSort.h"
+#include "../src/algorithms/CountingSort.h"
+#include "../src/utilities/ArrGenerator.h"
 
 static void BM_BubbleSort(benchmark::State& state) {
     for (auto _ : state) {
